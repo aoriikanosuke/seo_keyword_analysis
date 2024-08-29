@@ -1,4 +1,4 @@
-from janome.tokenizer import Tokenizer
+ï»¿from janome.tokenizer import Tokenizer
 from janome.tokenfilter import CompoundNounFilter
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -24,7 +24,7 @@ driver.get("https://google.com")
 time.sleep(5)
 search_box = driver.find_element(By.XPATH, '//*[@id="APjFqb"]')
 search_box.click()
-search_word = "AŠˆ@26‘²"
+search_word = "å°±æ´»ã€€26å’"
 search_box.send_keys(search_word)
 search_box.click()
 search_box.send_keys(Keys.RETURN)
@@ -70,7 +70,7 @@ for index, result in enumerate(results):
     print(f"{index + 1}: {result['title']}")
     for i, heading in enumerate(headings):
         print(f"  {i + 1}. {heading}")
-    print(f"  ‹L–‘S‘Ì‚Ì•¶š”: {text_length}")
+    print(f"  è¨˜äº‹å…¨ä½“ã®æ–‡å­—æ•°: {text_length}")
     print("-" * 50)
     time.sleep(2)
 
@@ -82,13 +82,13 @@ title_words = []
 for title in all_titles:
     tokens = tokenizer.tokenize(title)
     for token in tokens:
-        if token.part_of_speech.split(',')[0] == "–¼Œ" and len(token.surface) > 1:
+        if token.part_of_speech.split(',')[0] == "åè©" and len(token.surface) > 1:
             title_words.append(token.surface)
 
 title_word_counts = Counter(title_words)
 common_title_words = title_word_counts.most_common()
 
-print("\nƒ^ƒCƒgƒ‹‚Ì‹¤’Ê’PŒê:")
+print("\nã‚¿ã‚¤ãƒˆãƒ«ã®å…±é€šå˜èª:")
 for word, freq in common_title_words:
     print(f"{word}: {freq}")
 
@@ -96,13 +96,13 @@ for heading in all_headings:
     tokens = tokenizer.tokenize(heading)
     previous_token = None
     for token in tokens:
-        if token.part_of_speech.split(',')[0] == "–¼Œ":
-            if previous_token and previous_token.part_of_speech.split(',')[0] == "–¼Œ":
+        if token.part_of_speech.split(',')[0] == "åè©":
+            if previous_token and previous_token.part_of_speech.split(',')[0] == "åè©":
                 combined_word = words[-1] + token.surface
                 words[-1] = combined_word if len(combined_word) > 1 else '' 
             else:
                 words.append(token.surface if len(token.surface) > 1 else '')
-        elif token.part_of_speech.split(',')[0] != "•Œ" and len(token.surface) > 1:
+        elif token.part_of_speech.split(',')[0] != "åŠ©è©" and len(token.surface) > 1:
             words.append(token.surface)
         previous_token = token
 
@@ -116,10 +116,10 @@ for word, freq in common_words:
     print(f"{word}: {freq}")
 
 average_length = sum(site_lengths) / len(site_lengths) if site_lengths else 0
-print(f"ŠeƒTƒCƒg‚Ì•½‹Ï•¶š”: {average_length}")
+print(f"å„ã‚µã‚¤ãƒˆã®å¹³å‡æ–‡å­—æ•°: {average_length}")
 
 
-# csvo—Í
+# csvå‡ºåŠ›
 
 csv_file_path = 'D:/python/output.csv'
 with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as file:
@@ -128,15 +128,15 @@ with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as file:
     for result, length in zip(results, site_lengths):
         writer.writerow({'Title': result['title'], 'Link': result['link'], 'Text_Length': length})
     writer.writerow([])
-    writer.writerow(['Œ©o‚µ'])
+    writer.writerow(['è¦‹å‡ºã—'])
     for heading in all_headings:
         writer.writerow([heading])
     writer.writerow([])
-    writer.writerow(['’PŒê', 'oŒ»‰ñ”'])
+    writer.writerow(['å˜èª', 'å‡ºç¾å›æ•°'])
     for word, freq in common_words:
         writer.writerow([word, freq])
     writer.writerow([])
-    writer.writerow(['’PŒê', 'oŒ»‰ñ”'])
+    writer.writerow(['å˜èª', 'å‡ºç¾å›æ•°'])
     for word, freq in common_title_words:
         writer.writerow([word, freq])
 
