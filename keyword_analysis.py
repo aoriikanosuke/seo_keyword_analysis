@@ -18,12 +18,13 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=chrome_options)
 
 
+
 driver = webdriver.Chrome()
 driver.get("https://google.com")
 time.sleep(5)
 search_box = driver.find_element(By.XPATH, '//*[@id="APjFqb"]')
 search_box.click()
-search_word = "就活　25卒"
+search_word = "就活　26卒"
 search_box.send_keys(search_word)
 search_box.click()
 search_box.send_keys(Keys.RETURN)
@@ -118,7 +119,7 @@ average_length = sum(site_lengths) / len(site_lengths) if site_lengths else 0
 print(f"各サイトの平均文字数: {average_length}")
 
 
-//csv出力
+# csv出力
 
 csv_file_path = 'D:/python/output.csv'
 with open(csv_file_path, 'w', newline='', encoding='utf-8-sig') as file:
