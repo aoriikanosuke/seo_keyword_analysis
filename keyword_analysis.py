@@ -11,14 +11,16 @@ import csv
 import re
 from selenium.webdriver.chrome.options import Options
 
+# ドライバーのセットアップ処理
 def setup_driver():
     chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     return webdriver.Chrome(options=chrome_options)
 
-def perform_search(driver, search_word):
-    driver.get("https://google.com")
+# 開きたいドライバーのURLを持ってくる
+def perform_search(driver, search_word): 
+    driver.get("https://google.com") 
     time.sleep(2)
     search_box = driver.find_element(By.XPATH, '//*[@id="APjFqb"]')
     search_box.click()
@@ -26,7 +28,8 @@ def perform_search(driver, search_word):
     search_box.send_keys(Keys.RETURN)
     time.sleep(5)
 
-def collect_search_results(driver, count=10):
+# 取得したデータの格納先
+def collect_search_results(driver, count):
     results = []
     while len(results) < count:
         current_results = [
@@ -48,6 +51,7 @@ def collect_search_results(driver, count=10):
             break
     return results[:count]
 
+# 取得したデータの出力処理
 def extract_content_from_pages(driver, results):
     all_titles, all_headings, site_lengths = [], [], []
     for index, result in enumerate(results):
@@ -69,10 +73,10 @@ def extract_content_from_pages(driver, results):
     return all_titles, all_headings, site_lengths
 
 def main():
-    driver = setup_driver()
-    search_word = "it業界　志望動機"
+    driver = setup_driver() # ドライバーの取得
+    search_word = "it業界　志望動機" # 検索KWを入力
     perform_search(driver, search_word)
-    results = collect_search_results(driver, count=10)
+    results = collect_search_results(driver, count=5) #countは調べたいURLの個数,デフォルト10個
     all_titles, all_headings, site_lengths = extract_content_from_pages(driver, results)
     driver.quit()
 
