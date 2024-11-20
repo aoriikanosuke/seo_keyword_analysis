@@ -74,7 +74,7 @@ def extract_content_from_pages(driver, results):
 
 def main():
     driver = setup_driver() # ドライバーの取得
-    search_word = "it業界　志望動機" # 検索KWを入力
+    search_word = "エントリーシート 自己pr" # 検索KWを入力
     perform_search(driver, search_word)
     results = collect_search_results(driver, count=5) #countは調べたいURLの個数,デフォルト10個
     all_titles, all_headings, site_lengths = extract_content_from_pages(driver, results)
