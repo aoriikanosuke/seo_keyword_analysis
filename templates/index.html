@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css" />
     <title>検索アプリ</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
-    <h1>キーワード検索</h1>
-    <form action="/search" method="POST">
-        <input type="text" name="keyword" placeholder="キーワードを入力してください" required>
-        <button type="submit">検索</button>
-    </form>
+    <div class="search">
+        <h1>キーワード検索</h1>
+        <form action="/search" method="POST">
+            <input type="text" name="keyword" placeholder="キーワードを入力してください" required>
+            <button type="submit">検索</button>
+        </form>
+    </div>
 </body>
 </html>
