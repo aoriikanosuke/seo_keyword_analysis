@@ -1,6 +1,7 @@
 ﻿from flask import Flask, request, render_template
 import requests
 from bs4 import BeautifulSoup
+import urllib.parse
 
 app = Flask(__name__)
 
@@ -27,6 +28,7 @@ def get_search_results(keyword):
     # 検索結果のリンクを抽出
     for a_tag in soup.select('a[href^="/url?q="]')[:10]:
         link = a_tag['href'].split('/url?q=')[1].split('&')[0]
+        link = urllib.parse.unquote(link)
         if link not in links:  # 重複を排除
             links.append(link)
 
