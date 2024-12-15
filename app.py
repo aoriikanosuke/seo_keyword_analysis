@@ -1,7 +1,7 @@
 ﻿from flask import Flask, request, render_template
 import requests
 from bs4 import BeautifulSoup
-import urllib.parse
+from urllib.parse import urlparse, urlunparse, unquote
 
 app = Flask(__name__)
 
@@ -25,12 +25,30 @@ def get_search_results(keyword):
     search_results = []
     links = []
 
+    # 除外するドメインリスト
+    excluded_domains = ["google.com", "maps.google.com"]
+
     # 検索結果のリンクを抽出
-    for a_tag in soup.select('a[href^="/url?q="]')[:11]:
-        link = a_tag['href'].split('/url?q=')[1].split('&')[0]
-        link = urllib.parse.unquote(link) 
-        if link not in links:  # 重複を排除
-            links.append(link)
+    for a_tag in soup.select('a[href^="/url?q="]'):
+        try:
+            # URLを正しく解析してデコード
+            raw_link = a_tag['href'].split('/url?q=')[1].split('&')[0]
+            decoded_link = unquote(raw_link)
+
+            # フラグメントを除去
+            parsed_url = urlparse(decoded_link)
+            clean_link = urlunparse(parsed_url._replace(fragment=""))
+
+            # 除外ドメインチェック
+            if any(domain in clean_link for domain in excluded_domains):
+                continue
+
+            # URLの重複を排除
+            if clean_link not in links:
+                links.append(clean_link)
+        except Exception as e:
+            print(f"Error parsing URL: {e}")
+            continue
 
     # 各リンク先のページを解析
     for link in links:
@@ -38,7 +56,7 @@ def get_search_results(keyword):
             page_response = requests.get(link, headers=headers, timeout=5)
             page_soup = BeautifulSoup(page_response.text, 'html.parser')
 
-            title = page_soup.title.string if page_soup.title else "No Title"
+            title = page_soup.title.string.strip() if page_soup.title else "No Title"
             h2_tags = [h2.get_text(strip=True) for h2 in page_soup.find_all('h2')]
             text_length = len(page_soup.get_text())
 
