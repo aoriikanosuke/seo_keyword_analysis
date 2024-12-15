@@ -14,7 +14,7 @@
         <h2>{{ result.title }}</h2>
         <p><strong>リンク:</strong> <a href="{{ result.link }}" target="_blank">{{ result.link }}</a></p>
         <div class="content">
-            <p><strong>本文の文字数:</strong> {{ result.text_length }} 文字</p>
+            <p><strong>本文の文字数:</strong> {{ result.text_length }} 文字</p></br>
             <p><strong>h2タグ:</strong></p>
             <ul>
                 {% for h2 in result.h2_tags %}
@@ -24,5 +24,9 @@
         </div>
     </section>
     {% endfor %}
+    <a href="/" class="back-button">
+        <button type="button" class="back">他の検索をする</button>
+    </a>
 </body>
+
 </html>

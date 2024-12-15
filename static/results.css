@@ -1,28 +1,108 @@
+/* 全体のスタイル */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    line-height: 1.6;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+/* 見出しのスタイル */
 h1 {
-    text-align: center;
-}
-section {
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    padding: 10px;
-    border-radius: 5px;
-}
-h2 {
-    margin-top: 0;
     color: #333;
+    text-align: center;
+    margin-top: 50px;
 }
-a {
-    color: #007BFF;
-    text-decoration: none;
+
+/* 各セクションのスタイル */
+section {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
 }
-a:hover {
+
+/* セクションのタイトル */
+section h2 {
+    color: #000000;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* リンク部分のスタイル */
+section a {
+    word-wrap: break-word;  /* 古いブラウザ向け */
+    overflow-wrap: break-word; /* 最新ブラウザ向け */
+    word-break: break-all; /* 単語途中でも折り返す */
+    display: inline-block; /* 折り返しのためブロック扱い */
+    max-width: 100%; /* 親要素の幅を超えない */
+    text-decoration: none; /* 必要なら下線を削除 */
+    color: #007bff; /* リンクの色 */
+}
+
+section a:hover {
     text-decoration: underline;
 }
+
+/* 本文とh2タグのセクション */
 .content {
-    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.content p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    display: inline-block;
+    max-width: 100%;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.content li {
+    font-size: 16px;
+    background-color: #f9f9f9;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* 小見出しの強調 */
+strong {
+    font-weight: bold;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    section {
+        width: 100%;
+    }
+}
+.back {
+    padding: 15px;
+    margin: 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+footer {
+    background-color: rgb(15, 101, 214);
 }
